@@ -1,0 +1,93 @@
+import {
+  Column,
+  DataType,
+  Table,
+  Model,
+  HasOne,
+  HasMany,
+} from 'sequelize-typescript';
+import { Project } from 'src/project/entities/project.entity';
+import { Raidd } from 'src/raidd/entities/raidd.entity';
+
+@Table({
+  tableName: 'contract',
+})
+export class Contract extends Model {
+  @Column({
+    type: DataType.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  })
+  id_contract: number;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  contracto_number: string;
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  po_date: Date;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  client: string;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  po2: string;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  customer_po: string;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  manufacter: string;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  commodity: string;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  supplier_counterpart: string;
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+  })
+  po: boolean;
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+  })
+  storage: boolean;
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+  })
+  facturado: boolean;
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+  })
+  deliveried: boolean;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  status: string;
+
+  @HasOne(() => Project)
+  project: Project;
+
+  @HasMany(() => Raidd)
+  raidd: Raidd[];
+}
