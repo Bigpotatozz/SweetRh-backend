@@ -13,8 +13,8 @@ export class EmployeeService {
   async create(createEmployeeDto: CreateEmployeeDto) {
     try {
       const employee = await this.employeeRepository.create({
-        name: createEmployeeDto.name,
-        position: createEmployeeDto.position,
+        name: createEmployeeDto.name.toUpperCase(),
+        position: createEmployeeDto.position.toUpperCase(),
       });
 
       return employee;
@@ -65,8 +65,8 @@ export class EmployeeService {
       }
 
       const updatedEmployee = await employee.update({
-        name: updateEmployeeDto.name,
-        position: updateEmployeeDto.position,
+        name: updateEmployeeDto.name.toUpperCase(),
+        position: updateEmployeeDto.position.toUpperCase(),
       });
 
       return updatedEmployee;

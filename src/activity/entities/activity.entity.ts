@@ -31,6 +31,17 @@ export class Activity extends Model {
   })
   description: string;
 
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  start_date: Date;
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  end_date: Date;
+
   @ForeignKey(() => Employee)
   @Column
   id_employee: number;
