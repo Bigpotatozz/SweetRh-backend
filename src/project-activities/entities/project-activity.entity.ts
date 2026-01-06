@@ -2,6 +2,7 @@ import {
   BelongsTo,
   Column,
   DataType,
+  DeletedAt,
   ForeignKey,
   Model,
   Table,
@@ -65,4 +66,7 @@ export class ProjectActivity extends Model {
 
   @BelongsTo(() => Project)
   project: Project;
+
+  @DeletedAt
+  declare deletedAt?: Date;
 }

@@ -2,6 +2,7 @@ import {
   BelongsTo,
   Column,
   DataType,
+  DeletedAt,
   ForeignKey,
   Model,
   Table,
@@ -55,4 +56,7 @@ export class Raidd extends Model {
 
   @BelongsTo(() => Contract)
   contract: Contract;
+
+  @DeletedAt
+  declare deletedAt?: Date;
 }

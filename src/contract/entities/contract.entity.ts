@@ -5,6 +5,7 @@ import {
   Model,
   HasOne,
   HasMany,
+  DeletedAt,
 } from 'sequelize-typescript';
 import { Project } from 'src/project/entities/project.entity';
 import { Raidd } from 'src/raidd/entities/raidd.entity';
@@ -91,4 +92,7 @@ export class Contract extends Model {
 
   @HasMany(() => Raidd)
   raidd: Raidd[];
+
+  @DeletedAt
+  declare deletedAt?: Date;
 }

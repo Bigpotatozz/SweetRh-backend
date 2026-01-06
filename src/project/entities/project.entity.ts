@@ -2,6 +2,7 @@ import {
   BelongsTo,
   Column,
   DataType,
+  DeletedAt,
   ForeignKey,
   HasMany,
   Model,
@@ -47,4 +48,7 @@ export class Project extends Model {
 
   @BelongsTo(() => Employee)
   employee: Employee;
+
+  @DeletedAt
+  declare deletedAt?: Date;
 }
