@@ -25,7 +25,7 @@ export class Contract extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  contracto_number: string;
+  contract_number: string;
   @Column({
     type: DataType.DATE,
     allowNull: false,
@@ -43,7 +43,7 @@ export class Contract extends Model {
   po2: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   customer_po: string;
   @Column({
