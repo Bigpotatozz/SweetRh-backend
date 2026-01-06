@@ -34,6 +34,13 @@ export class Project extends Model {
   })
   description: string;
 
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    defaultValue: 'PENDIENTE',
+  })
+  status: string;
+
   @HasMany(() => ProjectActivity)
   project_activities_many: ProjectActivity[];
 

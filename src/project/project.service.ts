@@ -1,26 +1,103 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { Project } from './entities/project.entity';
 
 @Injectable()
 export class ProjectService {
-  create(createProjectDto: CreateProjectDto) {
-    return 'This action adds a new project';
+  constructor(
+    @Inject('PROJECT_REPOSITORY') private projectRepository: typeof Project,
+  ) {}
+  async create(createProjectDto: CreateProjectDto) {
+    try {
+      const project = await this.projectRepository.create({
+        name: createProjectDto.name,
+        description: createProjectDto.description,
+        id_employee: createProjectDto.id_employee,
+        id_contract: createProjectDto.id_contract,
+      });
+
+      return project;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al crear el proyecto', 500);
+    }
   }
 
-  findAll() {
-    return `This action returns all project`;
+  async findAll() {
+    try {
+      const projects = await this.projectRepository.findAll();
+
+      if (projects.length === 0) {
+        return new HttpException('No hay proyectos', 404);
+      }
+
+      return projects;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al obtener los proyectos', 500);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id: number) {
+    try {
+      const project = await this.projectRepository.findByPk(id);
+
+      if (!project) {
+        return new HttpException('No existe el proyecto', 404);
+      }
+
+      return project;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al obtener el proyecto', 500);
+    }
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  async update(id: number, updateProjectDto: UpdateProjectDto) {
+    try {
+      const project = await this.projectRepository.findByPk(id);
+
+      if (!project) {
+        return new HttpException('No existe el proyecto', 404);
+      }
+
+      if (
+        updateProjectDto.name === undefined ||
+        updateProjectDto.description === undefined ||
+        updateProjectDto.id_employee === undefined ||
+        updateProjectDto.id_contract === undefined
+      ) {
+        return new HttpException('Faltan datos', 400);
+      }
+
+      project.name = updateProjectDto.name;
+      project.description = updateProjectDto.description;
+      project.id_employee = updateProjectDto.id_employee;
+      project.id_contract = updateProjectDto.id_contract;
+
+      const updatedProject = await project.update(project);
+
+      return updatedProject;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al actualizar el proyecto', 500);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async completeProject(id: number) {
+    try {
+      const project = await this.projectRepository.findByPk(id);
+      if (!project) {
+        return new HttpException('No existe el proyecto', 404);
+      }
+
+      const updatedProject = await project.update({ status: 'COMPLETED' });
+
+      return updatedProject;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al completar el proyecto', 500);
+    }
   }
 }
