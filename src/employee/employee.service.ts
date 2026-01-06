@@ -5,13 +5,10 @@ import { Employee } from './entities/employee.entity';
 
 @Injectable()
 export class EmployeeService {
-
   constructor(
-    @Inject('EMPLOYEE_REPOSITORY') 
-    private employeeRepository: typeof Employee()
-  ){
-    
-  }
+    @Inject('EMPLOYEE_REPOSITORY')
+    private employeeRepository: typeof Employee,
+  ) {}
   create(createEmployeeDto: CreateEmployeeDto) {
     console.log(CreateEmployeeDto);
     return 'This action adds a new employee';

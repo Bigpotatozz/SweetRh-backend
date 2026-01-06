@@ -1,15 +1,20 @@
 import { Sequelize } from 'sequelize-typescript';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
+import { Activity } from 'src/activity/entities/activity.entity';
+import { Contract } from 'src/contract/entities/contract.entity';
+import { Employee } from 'src/employee/entities/employee.entity';
+import { Project } from 'src/project/entities/project.entity';
+import { ProjectActivity } from 'src/project-activities/entities/project-activity.entity';
+import { Raidd } from 'src/raidd/entities/raidd.entity';
 dotenv.config();
 
 const credenciales = {
   host: process.env.HOST,
-  port: parseInt(process.env.PORT as string, 10),
-  username: process.env.USERNAME,
+  port: parseInt(process.env.DBPORT as string, 10),
+  username: process.env.USER,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
 };
-
 export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
@@ -22,8 +27,15 @@ export const databaseProviders = [
         password: credenciales.password,
         database: credenciales.database,
       });
-      sequelize.addModels([]);
-      await sequelize.sync();
+      sequelize.addModels([
+        Activity,
+        Contract,
+        Employee,
+        Project,
+        ProjectActivity,
+        Raidd,
+      ]);
+      await sequelize.sync({ force: true });
       return sequelize;
     },
   },

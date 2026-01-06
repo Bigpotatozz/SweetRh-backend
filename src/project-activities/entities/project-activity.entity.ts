@@ -1,6 +1,7 @@
 import {
   BelongsTo,
   Column,
+  DataType,
   ForeignKey,
   Model,
   Table,
@@ -13,50 +14,50 @@ import { Project } from 'src/project/entities/project.entity';
 })
 export class ProjectActivity extends Model {
   @Column({
-    type: 'INTEGER',
+    type: DataType.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   })
   id_project_activity: number;
   @Column({
-    type: 'STRING',
+    type: DataType.STRING,
     allowNull: false,
   })
   name: string;
   @Column({
-    type: 'STRING',
+    type: DataType.STRING,
     allowNull: false,
   })
   description: string;
   @Column({
-    type: 'DATE',
+    type: DataType.DATE,
     allowNull: false,
   })
   start_date: Date;
   @Column({
-    type: 'DATE',
+    type: DataType.DATE,
     allowNull: false,
   })
   end_date: Date;
   @Column({
-    type: 'STRING',
+    type: DataType.STRING,
     allowNull: false,
   })
   status: string;
 
   @Column({
-    type: 'INTEGER',
+    type: DataType.INTEGER,
     allowNull: false,
   })
   @ForeignKey(() => Employee)
   id_employee: number;
 
   @Column({
-    type: 'INTEGER',
+    type: DataType.INTEGER,
     allowNull: false,
   })
   @ForeignKey(() => Project)
-  id_project: number;
+  id_project_fk: number;
 
   @BelongsTo(() => Employee)
   employee: Employee;

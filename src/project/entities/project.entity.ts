@@ -31,12 +31,9 @@ export class Project extends Model {
     allowNull: false,
   })
   description: string;
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
+
   @HasMany(() => ProjectActivity)
-  project_activities: ProjectActivity[];
+  project_activities_many: ProjectActivity[];
 
   @ForeignKey(() => Employee)
   id_employee: number;

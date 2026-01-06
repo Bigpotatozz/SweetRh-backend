@@ -10,7 +10,15 @@ import { ProjectActivitiesModule } from './project-activities/project-activities
 import { RaiddModule } from './raidd/raidd.module';
 
 @Module({
-  imports: [DatabaseModule, EmployeeModule, ActivityModule, ContractModule, ProjectModule, ProjectActivitiesModule, RaiddModule],
+  imports: [
+    DatabaseModule,
+    EmployeeModule,
+    ActivityModule,
+    ContractModule,
+    ProjectModule,
+    ProjectActivitiesModule,
+    RaiddModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
