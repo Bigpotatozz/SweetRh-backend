@@ -10,6 +10,7 @@ import { Contract } from 'src/contract/entities/contract.entity';
 
 @Table({
   tableName: 'raidd',
+  paranoid: true,
 })
 export class Raidd extends Model {
   @Column({

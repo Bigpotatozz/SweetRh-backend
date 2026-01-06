@@ -5,11 +5,13 @@ import {
   Table,
   Model,
   DataType,
+  DeletedAt,
 } from 'sequelize-typescript';
 import { Employee } from 'src/employee/entities/employee.entity';
 
 @Table({
   tableName: 'activity',
+  paranoid: true,
 })
 export class Activity extends Model {
   @Column({
@@ -35,4 +37,7 @@ export class Activity extends Model {
 
   @BelongsTo(() => Employee)
   employee: Employee;
+
+  @DeletedAt
+  declare deletedAt?: Date;
 }

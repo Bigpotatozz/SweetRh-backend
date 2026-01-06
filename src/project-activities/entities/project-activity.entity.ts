@@ -11,6 +11,7 @@ import { Project } from 'src/project/entities/project.entity';
 
 @Table({
   tableName: 'project_activity',
+  paranoid: true,
 })
 export class ProjectActivity extends Model {
   @Column({

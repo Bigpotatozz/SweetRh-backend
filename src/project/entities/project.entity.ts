@@ -13,6 +13,7 @@ import { ProjectActivity } from 'src/project-activities/entities/project-activit
 
 @Table({
   tableName: 'project',
+  paranoid: true,
 })
 export class Project extends Model {
   @Column({

@@ -1,10 +1,19 @@
-import { Column, HasMany, Table, Model, DataType } from 'sequelize-typescript';
+import {
+  Column,
+  HasMany,
+  Table,
+  Model,
+  DataType,
+  DeletedAt,
+} from 'sequelize-typescript';
 import { Activity } from 'src/activity/entities/activity.entity';
 import { ProjectActivity } from 'src/project-activities/entities/project-activity.entity';
 import { Project } from 'src/project/entities/project.entity';
 
 @Table({
   tableName: 'employee',
+  paranoid: true,
+  deletedAt: true,
 })
 export class Employee extends Model {
   @Column({
@@ -32,4 +41,7 @@ export class Employee extends Model {
 
   @HasMany(() => ProjectActivity)
   project_activities: ProjectActivity[];
+
+  @DeletedAt
+  declare deletedAt?: Date;
 }

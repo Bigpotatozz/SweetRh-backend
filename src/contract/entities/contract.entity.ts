@@ -11,6 +11,7 @@ import { Raidd } from 'src/raidd/entities/raidd.entity';
 
 @Table({
   tableName: 'contract',
+  paranoid: true,
 })
 export class Contract extends Model {
   @Column({

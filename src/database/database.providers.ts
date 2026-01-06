@@ -35,7 +35,7 @@ export const databaseProviders = [
         ProjectActivity,
         Raidd,
       ]);
-      await sequelize.sync({ force: true });
+      await sequelize.sync();
       return sequelize;
     },
   },

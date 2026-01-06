@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { Employee } from './entities/employee.entity';
@@ -9,24 +9,90 @@ export class EmployeeService {
     @Inject('EMPLOYEE_REPOSITORY')
     private employeeRepository: typeof Employee,
   ) {}
-  create(createEmployeeDto: CreateEmployeeDto) {
-    console.log(CreateEmployeeDto);
-    return 'This action adds a new employee';
+  //Register new employee
+  async create(createEmployeeDto: CreateEmployeeDto) {
+    try {
+      const employee = await this.employeeRepository.create({
+        name: createEmployeeDto.name,
+        position: createEmployeeDto.position,
+      });
+
+      return employee;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al crear empleado', 500, {
+        cause: e,
+      });
+    }
   }
 
-  findAll() {
-    return `This action returns all employee`;
+  //List of all employees
+  async findAll() {
+    try {
+      const employees = await this.employeeRepository.findAll();
+      return employees;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al listar empleados', 500, {
+        cause: e,
+      });
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  async findOne(id: number) {
+    try {
+      const employee = await this.employeeRepository.findByPk(id);
+      return employee;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al listar empleados', 500, {
+        cause: e,
+      });
+    }
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
+  async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
+    try {
+      const employee = await this.employeeRepository.findByPk(id);
+      if (!employee) {
+        return new HttpException('Empleado no encontrado', 404);
+      }
+      if (
+        updateEmployeeDto.name === undefined ||
+        updateEmployeeDto.position === undefined
+      ) {
+        return new HttpException('Datos incompletos', 400);
+      }
+
+      const updatedEmployee = await employee.update({
+        name: updateEmployeeDto.name,
+        position: updateEmployeeDto.position,
+      });
+
+      return updatedEmployee;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al actualizar empleado', 500, {
+        cause: e,
+      });
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  async remove(id: number) {
+    try {
+      const employee = await this.employeeRepository.findByPk(id);
+
+      if (!employee) {
+        return new HttpException('Empleado no encontrado', 404);
+      }
+
+      employee.destroy();
+      return employee;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al eliminar empleado', 500, {
+        cause: e,
+      });
+    }
   }
 }
