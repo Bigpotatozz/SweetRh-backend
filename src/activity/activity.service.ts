@@ -11,6 +11,7 @@ export class ActivityService {
 
   async create(createActivityDto: CreateActivityDto) {
     try {
+      console.log(createActivityDto);
       const activity = await this.activityRepository.create({
         id_employee: createActivityDto.id_employee,
         name: createActivityDto.name,
