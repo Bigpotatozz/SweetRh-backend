@@ -2,6 +2,7 @@ import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { Activity } from './entities/activity.entity';
+import { Employee } from 'src/employee/entities/employee.entity';
 
 @Injectable()
 export class ActivityService {
@@ -31,7 +32,15 @@ export class ActivityService {
 
   async findAll() {
     try {
-      const activities = await this.activityRepository.findAll();
+      const activities = await this.activityRepository.findAll({
+        include: [
+          {
+            model: Employee,
+            as: 'employee',
+            attributes: ['name'],
+          },
+        ],
+      });
       return activities;
     } catch (e) {
       return new HttpException('Error al obtener actividades', 500, {
