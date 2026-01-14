@@ -72,6 +72,7 @@ export class ContractService {
   //Probably this won´t be used in production
   async update(id: number, updateContractDto: UpdateContractDto) {
     try {
+      console.log('UPDATEEEEE');
       const contract = await this.contractRepository.findByPk(id);
 
       if (!contract) {
