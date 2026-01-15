@@ -1,4 +1,4 @@
-export class CreateContractDto {
+export class CreateConProyDto {
   contract_number: string;
   po_date: Date;
   client: string;
@@ -13,4 +13,7 @@ export class CreateContractDto {
   deliveried: boolean;
   status: string;
   usuario: string;
+  name_proy: string;
+  description: string;
+  id_employee: number;
 }

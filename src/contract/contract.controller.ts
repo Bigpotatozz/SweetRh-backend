@@ -10,6 +10,7 @@ import {
 import { ContractService } from './contract.service';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
+import { CreateConProyDto } from './dto/create-conproy';
 
 @Controller('contract')
 export class ContractController {
@@ -41,5 +42,10 @@ export class ContractController {
   @Delete('/delete/:id')
   remove(@Param('id') id: string) {
     return this.contractService.remove(+id);
+  }
+
+  @Post('/create/contractProject')
+  registerContractProject(@Body() contratoProyecto: CreateConProyDto) {
+    return this.contractService.registerContractProject(contratoProyecto);
   }
 }

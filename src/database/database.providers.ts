@@ -26,6 +26,7 @@ export const databaseProviders = [
         username: credenciales.username,
         password: credenciales.password,
         database: credenciales.database,
+        logging: false,
       });
       sequelize.addModels([
         Activity,

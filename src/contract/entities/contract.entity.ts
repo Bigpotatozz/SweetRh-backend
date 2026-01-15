@@ -6,6 +6,7 @@ import {
   HasOne,
   HasMany,
   DeletedAt,
+  AllowNull,
 } from 'sequelize-typescript';
 import { Project } from 'src/project/entities/project.entity';
 import { Raidd } from 'src/raidd/entities/raidd.entity';
@@ -87,6 +88,11 @@ export class Contract extends Model {
   })
   status: string;
 
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  usuario: string;
   @HasOne(() => Project)
   project: Project;
 

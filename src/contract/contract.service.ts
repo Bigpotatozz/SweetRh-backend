@@ -2,12 +2,17 @@ import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
 import { Contract } from './entities/contract.entity';
+import { CreateConProyDto } from './dto/create-conproy';
+import { Project } from 'src/project/entities/project.entity';
 
 @Injectable()
 export class ContractService {
   constructor(
     @Inject('CONTRACT_REPOSITORY')
     private readonly contractRepository: typeof Contract,
+
+    @Inject('PROJECT_REPOSITORY')
+    private readonly projectRepository: typeof Project,
   ) {}
 
   async create(createContractDto: CreateContractDto) {
@@ -26,6 +31,7 @@ export class ContractService {
         facturado: createContractDto.facturado,
         deliveried: createContractDto.deliveried,
         status: createContractDto.status,
+        usuario: createContractDto.usuario,
       });
 
       return contract;
@@ -92,7 +98,8 @@ export class ContractService {
         updateContractDto.storage === undefined ||
         updateContractDto.facturado === undefined ||
         updateContractDto.deliveried === undefined ||
-        updateContractDto.status == undefined
+        updateContractDto.status == undefined ||
+        updateContractDto.usuario === undefined
       ) {
         return new HttpException('Campos incompletos', 400);
       }
@@ -110,6 +117,7 @@ export class ContractService {
       contract.facturado = updateContractDto.facturado;
       contract.deliveried = updateContractDto.deliveried;
       contract.status = updateContractDto.status;
+      contract.usuario = updateContractDto.usuario;
 
       const updatedContract = await contract.update(contract);
       return updatedContract;
@@ -132,6 +140,51 @@ export class ContractService {
       const deletedContract = await contract.destroy();
 
       return deletedContract;
+    } catch (e) {
+      console.log(e);
+      return new HttpException('Error al registrar actividad', 500, {
+        cause: e,
+      });
+    }
+  }
+
+  async registerContractProject(contratoProyecto: CreateConProyDto) {
+    console.log('SE ENTRO AL ENDPOINT');
+    const sequelize = this.contractRepository.sequelize;
+    try {
+      return await sequelize?.transaction(async (t) => {
+        const contrato = await this.contractRepository.create(
+          {
+            contract_number: contratoProyecto.contract_number,
+            usuario: contratoProyecto.usuario,
+            po_date: contratoProyecto.po_date,
+            client: contratoProyecto.client,
+            po2: contratoProyecto.po2,
+            customer_po: contratoProyecto.customer_po,
+            manufacter: contratoProyecto.manufacter,
+            commodity: contratoProyecto.commodity,
+            supplier_counterpart: contratoProyecto.supplier_counterpart,
+            po: contratoProyecto.po,
+            storage: contratoProyecto.storage,
+            facturado: contratoProyecto.facturado,
+            deliveried: contratoProyecto.deliveried,
+            status: contratoProyecto.status,
+          },
+          { transaction: t },
+        );
+
+        const project = await this.projectRepository.create(
+          {
+            name: contratoProyecto.name_proy,
+            description: contratoProyecto.description,
+            id_employee: contratoProyecto.id_employee,
+            id_contract: contrato.id,
+          },
+          { transaction: t },
+        );
+
+        return { contrato, project };
+      });
     } catch (e) {
       console.log(e);
       return new HttpException('Error al registrar actividad', 500, {
