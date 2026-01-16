@@ -28,22 +28,20 @@ export class ProjectActivity extends Model {
   name: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   description: string;
   @Column({
     type: DataType.DATE,
-    allowNull: false,
   })
   start_date: Date;
   @Column({
     type: DataType.DATE,
-    allowNull: false,
   })
   end_date: Date;
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    defaultValue: 'PENDIENTE',
   })
   status: string;
 

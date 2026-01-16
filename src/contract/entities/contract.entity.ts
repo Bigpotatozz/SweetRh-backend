@@ -29,7 +29,6 @@ export class Contract extends Model {
   contract_number: string;
   @Column({
     type: DataType.DATE,
-    allowNull: false,
   })
   po_date: Date;
   @Column({
@@ -39,32 +38,26 @@ export class Contract extends Model {
   client: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   po2: string;
   @Column({
     type: DataType.STRING,
-    allowNull: true,
   })
   customer_po: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   manufacter: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   commodity: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   supplier_counterpart: string;
   @Column({
     type: DataType.BOOLEAN,
-    allowNull: false,
   })
   po: boolean;
   @Column({
@@ -84,7 +77,6 @@ export class Contract extends Model {
   deliveried: boolean;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   status: string;
 

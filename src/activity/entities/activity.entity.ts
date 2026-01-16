@@ -27,7 +27,6 @@ export class Activity extends Model {
   name: string;
   @Column({
     type: DataType.STRING(100),
-    allowNull: false,
   })
   description: string;
 
