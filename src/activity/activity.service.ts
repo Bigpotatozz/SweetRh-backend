@@ -37,6 +37,7 @@ export class ActivityService {
             model: Employee,
             as: 'employee',
             attributes: ['name'],
+            paranoid: false,
           },
         ],
       });
