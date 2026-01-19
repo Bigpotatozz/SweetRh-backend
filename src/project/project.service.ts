@@ -2,6 +2,7 @@ import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project } from './entities/project.entity';
+import { Employee } from 'src/employee/entities/employee.entity';
 
 @Injectable()
 export class ProjectService {
@@ -26,7 +27,9 @@ export class ProjectService {
 
   async findAll() {
     try {
-      const projects = await this.projectRepository.findAll();
+      const projects = await this.projectRepository.findAll({
+        include: [{ model: Employee, paranoid: false }],
+      });
 
       if (projects.length === 0) {
         return new HttpException('No hay proyectos', 404);
