@@ -57,7 +57,7 @@ export class ProjectActivity extends Model {
     allowNull: false,
   })
   @ForeignKey(() => Project)
-  id_project_fk: number;
+  id_project: number;
 
   @BelongsTo(() => Employee)
   employee: Employee;
