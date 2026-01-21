@@ -113,9 +113,9 @@ export class ProjectActivitiesService {
 
   async smartAddInteligentActivity(actividades: CreateProjectActivityDto[]) {
     try {
-      console.log(actividades);
       for (const actividad of actividades) {
         if (actividad.id_project_activity) {
+          console.log(actividad);
           const updatedActivity =
             await this.projectActivitiesRepository.findByPk(
               actividad.id_project_activity,
@@ -124,14 +124,14 @@ export class ProjectActivitiesService {
             throw new HttpException('No existe la actividad', 404);
           }
 
-          updatedActivity.name = actividad.name;
-          updatedActivity.description = actividad.description;
-          updatedActivity.start_date = actividad.start_date;
-          updatedActivity.end_date = actividad.end_date;
-          updatedActivity.status = actividad.status;
-          updatedActivity.id_employee = actividad.id_employee;
-
-          await updatedActivity.update(updatedActivity);
+          await updatedActivity.update({
+            name: actividad.name,
+            description: actividad.description,
+            start_date: actividad.start_date,
+            end_date: actividad.end_date,
+            status: actividad.status,
+            id_employee: actividad.id_employee,
+          });
         } else {
           const newActivity = await this.projectActivitiesRepository.create({
             name: actividad.name,
