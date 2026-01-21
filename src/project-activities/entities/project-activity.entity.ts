@@ -20,44 +20,44 @@ export class ProjectActivity extends Model {
     autoIncrement: true,
     primaryKey: true,
   })
-  id_project_activity: number;
+  declare id_project_activity: number;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  name: string;
+  declare name: string;
   @Column({
     type: DataType.STRING,
   })
-  description: string;
+  declare description: string;
   @Column({
     type: DataType.DATE,
   })
-  start_date: Date;
+  declare start_date: Date;
   @Column({
     type: DataType.DATE,
   })
-  end_date: Date;
+  declare end_date: Date;
   @Column({
     type: DataType.STRING,
     allowNull: false,
     defaultValue: 'PENDIENTE',
   })
-  status: string;
+  declare status: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   @ForeignKey(() => Employee)
-  id_employee: number;
+  declare id_employee: number;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   @ForeignKey(() => Project)
-  id_project: number;
+  declare id_project: number;
 
   @BelongsTo(() => Employee)
   employee: Employee;

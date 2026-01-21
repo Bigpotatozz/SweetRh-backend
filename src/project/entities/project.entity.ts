@@ -22,24 +22,24 @@ export class Project extends Model {
     autoIncrement: true,
     primaryKey: true,
   })
-  id_project: number;
+  declare id_project: number;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  name: string;
+  declare name: string;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  description: string;
+  declare description: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
     defaultValue: 'PENDIENTE',
   })
-  status: string;
+  declare status: string;
 
   @HasMany(() => ProjectActivity)
   project_activities_many: ProjectActivity[];

@@ -21,70 +21,70 @@ export class Contract extends Model {
     autoIncrement: true,
     primaryKey: true,
   })
-  id_contract: number;
+  declare id_contract: number;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  contract_number: string;
+  declare contract_number: string;
   @Column({
     type: DataType.DATE,
   })
-  po_date: Date;
+  declare po_date: Date;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  client: string;
+  declare client: string;
   @Column({
     type: DataType.STRING,
   })
-  po2: string;
+  declare po2: string;
   @Column({
     type: DataType.STRING,
   })
-  customer_po: string;
+  declare customer_po: string;
   @Column({
     type: DataType.STRING,
   })
-  manufacter: string;
+  declare manufacter: string;
   @Column({
     type: DataType.STRING,
   })
-  commodity: string;
+  declare commodity: string;
   @Column({
     type: DataType.STRING,
   })
-  supplier_counterpart: string;
+  declare supplier_counterpart: string;
   @Column({
     type: DataType.BOOLEAN,
   })
-  po: boolean;
-  @Column({
-    type: DataType.BOOLEAN,
-    allowNull: false,
-  })
-  storage: boolean;
+  declare po: boolean;
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
   })
-  facturado: boolean;
+  declare storage: boolean;
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
   })
-  deliveried: boolean;
+  declare facturado: boolean;
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+  })
+  declare deliveried: boolean;
   @Column({
     type: DataType.STRING,
   })
-  status: string;
+  declare status: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  usuario: string;
+  declare usuario: string;
   @HasOne(() => Project)
   project: Project;
 

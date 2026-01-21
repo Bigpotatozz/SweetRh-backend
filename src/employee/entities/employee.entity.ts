@@ -21,17 +21,17 @@ export class Employee extends Model {
     autoIncrement: true,
     primaryKey: true,
   })
-  id_employee: number;
+  declare id_employee: number;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  name: string;
+  declare name: string;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  position: string;
+  declare position: string;
 
   @HasMany(() => Activity)
   activities: Activity[];

@@ -20,32 +20,32 @@ export class Raidd extends Model {
     autoIncrement: true,
     allowNull: false,
   })
-  id_raidd: number;
+  declare id_raidd: number;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  cota: string;
+  declare cota: string;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  usuario: string;
+  declare usuario: string;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  tiempo_entrega: string;
+  declare tiempo_entrega: string;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  duracion: string;
+  declare duracion: string;
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  inicio: string;
+  declare inicio: string;
 
   @Column({
     type: DataType.INTEGER,

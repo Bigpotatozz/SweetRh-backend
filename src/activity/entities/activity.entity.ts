@@ -19,27 +19,27 @@ export class Activity extends Model {
     autoIncrement: true,
     primaryKey: true,
   })
-  id_activity: number;
+  declare id_activity: number;
   @Column({
     type: DataType.STRING(50),
     allowNull: false,
   })
-  name: string;
+  declare name: string;
   @Column({
     type: DataType.STRING(100),
   })
-  description: string;
+  declare description: string;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
   })
-  start_date: Date;
+  declare start_date: Date;
   @Column({
     type: DataType.DATE,
     allowNull: false,
   })
-  end_date: Date;
+  declare end_date: Date;
 
   @ForeignKey(() => Employee)
   @Column

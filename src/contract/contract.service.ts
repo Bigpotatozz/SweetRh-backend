@@ -149,7 +149,7 @@ export class ContractService {
   }
 
   async registerContractProject(contratoProyecto: CreateConProyDto) {
-    console.log('SE ENTRO AL ENDPOINT');
+    console.log(contratoProyecto);
     const sequelize = this.contractRepository.sequelize;
     try {
       return await sequelize?.transaction(async (t) => {
@@ -178,7 +178,7 @@ export class ContractService {
             name: contratoProyecto.name_proy,
             description: contratoProyecto.description,
             id_employee: contratoProyecto.id_employee,
-            id_contract: contrato.id,
+            id_contract: contrato.id_contract,
           },
           { transaction: t },
         );
