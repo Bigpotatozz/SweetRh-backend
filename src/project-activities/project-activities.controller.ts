@@ -44,4 +44,14 @@ export class ProjectActivitiesController {
   remove(@Param('id') id: string) {
     return this.projectActivitiesService.remove(+id);
   }
+
+  @Post('/smartAddActivity')
+  smartAddActivity(@Body() actvities: CreateProjectActivityDto[]) {
+    return this.projectActivitiesService.smartAddInteligentActivity(actvities);
+  }
+
+  @Get('/findActivitiesByProject/:id_project')
+  findActivitiesByProject(@Param('id_project') id_project: string) {
+    return this.projectActivitiesService.findActivitiesByProject(+id_project);
+  }
 }

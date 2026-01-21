@@ -1,4 +1,5 @@
 export class CreateProjectActivityDto {
+  id_project_activity?: number;
   name: string;
   description: string;
   start_date: Date;

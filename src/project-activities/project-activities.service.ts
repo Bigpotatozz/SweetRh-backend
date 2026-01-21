@@ -110,4 +110,67 @@ export class ProjectActivitiesService {
       });
     }
   }
+
+  async smartAddInteligentActivity(actividades: CreateProjectActivityDto[]) {
+    try {
+      console.log(actividades);
+      for (const actividad of actividades) {
+        if (actividad.id_project_activity) {
+          const updatedActivity =
+            await this.projectActivitiesRepository.findByPk(
+              actividad.id_project_activity,
+            );
+          if (!updatedActivity) {
+            throw new HttpException('No existe la actividad', 404);
+          }
+
+          updatedActivity.name = actividad.name;
+          updatedActivity.description = actividad.description;
+          updatedActivity.start_date = actividad.start_date;
+          updatedActivity.end_date = actividad.end_date;
+          updatedActivity.status = actividad.status;
+          updatedActivity.id_employee = actividad.id_employee;
+
+          await updatedActivity.update(updatedActivity);
+        } else {
+          const newActivity = await this.projectActivitiesRepository.create({
+            name: actividad.name,
+            description: actividad.description,
+            start_date: actividad.start_date,
+            end_date: actividad.end_date,
+            status: actividad.status,
+            id_employee: actividad.id_employee,
+            id_project: actividad.id_project,
+          });
+        }
+      }
+
+      return 'Actividades agregadas correctamente';
+    } catch (e) {
+      console.log(e);
+      throw new HttpException('Error al agregar actividad', 500, {
+        cause: e,
+      });
+    }
+  }
+
+  async findActivitiesByProject(id_project: number) {
+    try {
+      const activities = await this.projectActivitiesRepository.findAll({
+        where: {
+          id_project: id_project,
+        },
+      });
+
+      if (activities.length === 0) {
+        return new HttpException('No hay actividades para este proyecto', 404);
+      }
+      return activities;
+    } catch (e) {
+      console.log(e);
+      throw new HttpException('Error al obtener las actividades', 500, {
+        cause: e,
+      });
+    }
+  }
 }
