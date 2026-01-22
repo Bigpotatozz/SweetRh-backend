@@ -6,5 +6,6 @@ import { projectActivitiesProvider } from './project-activities.providers';
 @Module({
   controllers: [ProjectActivitiesController],
   providers: [ProjectActivitiesService, ...projectActivitiesProvider],
+  exports: [...projectActivitiesProvider],
 })
 export class ProjectActivitiesModule {}

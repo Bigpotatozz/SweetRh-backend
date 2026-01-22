@@ -3,11 +3,16 @@ import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { Activity } from './entities/activity.entity';
 import { Employee } from 'src/employee/entities/employee.entity';
+import { ProjectActivity } from 'src/project-activities/entities/project-activity.entity';
 
 @Injectable()
 export class ActivityService {
   constructor(
     @Inject('ACTIVITY_REPOSITORY') private activityRepository: typeof Activity,
+    @Inject('PROJECT_ACTIVITIES_REPOSITORY')
+    private projectActivityRepository: typeof ProjectActivity,
+
+    @Inject('EMPLOYEE_REPOSITORY') private employeeRepository: typeof Employee,
   ) {}
 
   async create(createActivityDto: CreateActivityDto) {
@@ -41,7 +46,8 @@ export class ActivityService {
           },
         ],
       });
-      return activities;
+
+      return { activities };
     } catch (e) {
       return new HttpException('Error al obtener actividades', 500, {
         cause: e,
@@ -112,6 +118,42 @@ export class ActivityService {
     } catch (e) {
       console.log(e);
       return new HttpException('Error al eliminar actividad', 500, {
+        cause: e,
+      });
+    }
+  }
+
+  async getAllActivities() {
+    try {
+      const sequelize = this.activityRepository.sequelize;
+      const query = `  SELECT 
+			id_employee,
+			id_activity,
+            name,
+            description,
+            start_date,
+            end_date,
+            'normal' AS tipo  -- Columna extra para saber de qué tabla viene
+        FROM activity 
+
+        UNION ALL
+
+        SELECT 
+			id_employee,
+			id_project_activity,
+            name,
+            description,
+            start_date,
+            end_date,
+            'proyecto' AS tipo
+        FROM project_activity;`;
+
+      const actividades = await sequelize?.query(query);
+
+      return actividades;
+    } catch (e) {
+      console.log(e);
+      throw new HttpException('Error al obtener actividades', 500, {
         cause: e,
       });
     }

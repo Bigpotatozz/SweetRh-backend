@@ -24,8 +24,12 @@ export class ActivityController {
   findAll() {
     return this.activityService.findAll();
   }
+  @Get('/getAllActivities')
+  getAllActivities() {
+    return this.activityService.getAllActivities();
+  }
 
-  @Get(':id')
+  @Get('/:id')
   findOne(@Param('id') id: string) {
     return this.activityService.findOne(+id);
   }
@@ -38,7 +42,7 @@ export class ActivityController {
     return this.activityService.update(+id, updateActivityDto);
   }
 
-  @Delete('delete/:id')
+  @Delete('/delete/:id')
   remove(@Param('id') id: string) {
     return this.activityService.remove(+id);
   }
