@@ -127,30 +127,38 @@ export class ActivityService {
     try {
       const sequelize = this.activityRepository.sequelize;
       const query = `  SELECT 
-			id_employee,
-			id_activity,
-            name,
-            description,
-            start_date,
-            end_date,
-            'normal' AS tipo  -- Columna extra para saber de qué tabla viene
+			activity.id_employee,
+			activity.id_activity,
+            activity.name,
+            activity.description,
+            activity.start_date,
+            activity.end_date,
+            'normal' AS tipo,
+            employee.name as name_employee
         FROM activity 
+        inner join employee on employee.id_employee = activity.id_employee
 
         UNION ALL
 
         SELECT 
-			id_employee,
-			id_project_activity,
-            name,
-            description,
-            start_date,
-            end_date,
-            'proyecto' AS tipo
-        FROM project_activity;`;
+			project_activity.id_employee,
+			project_activity.id_project_activity,
+            project_activity.name,
+            project_activity.description,
+            project_activity.start_date,
+            project_activity.end_date,
+            'proyecto' AS tipo,
+            employee.name as name_employee
+        FROM project_activity
+          inner join employee on employee.id_employee = project_activity.id_employee;`;
 
       const actividades = await sequelize?.query(query);
 
-      return actividades;
+      if (!actividades) {
+        return new HttpException('No se encontraron actividades', 404);
+      }
+
+      return actividades[0];
     } catch (e) {
       console.log(e);
       throw new HttpException('Error al obtener actividades', 500, {
