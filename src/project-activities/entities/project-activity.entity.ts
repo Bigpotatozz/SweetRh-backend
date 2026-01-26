@@ -1,4 +1,5 @@
 import {
+  AllowNull,
   BelongsTo,
   Column,
   DataType,
