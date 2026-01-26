@@ -34,7 +34,7 @@ export class ProjectActivitiesController {
 
   @Patch('/update/:id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateProjectActivityDto: UpdateProjectActivityDto,
   ) {
     return this.projectActivitiesService.update(+id, updateProjectActivityDto);

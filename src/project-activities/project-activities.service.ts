@@ -61,6 +61,7 @@ export class ProjectActivitiesService {
 
   async update(id: number, updateProjectActivityDto: UpdateProjectActivityDto) {
     try {
+      console.log(id);
       const actividad = await this.projectActivitiesRepository.findByPk(id);
 
       if (!actividad) {
@@ -78,12 +79,16 @@ export class ProjectActivitiesService {
         return new HttpException('Faltan datos', 400);
       }
 
-      actividad.name = updateProjectActivityDto.name;
-      actividad.description = updateProjectActivityDto.description;
-      actividad.start_date = updateProjectActivityDto.start_date;
-      actividad.end_date = updateProjectActivityDto.end_date;
-      actividad.status = updateProjectActivityDto.status;
-      actividad.id_employee = updateProjectActivityDto.id_employee;
+      const modifiedActivity = await actividad.update({
+        name: updateProjectActivityDto.name,
+        description: updateProjectActivityDto.description,
+        start_date: updateProjectActivityDto.start_date,
+        end_date: updateProjectActivityDto.end_date,
+        status: updateProjectActivityDto.status,
+        id_employee: updateProjectActivityDto.id_employee,
+      });
+
+      return modifiedActivity;
     } catch (e) {
       console.log(e);
       return new HttpException('Error al actualizar la actividad', 500, {
