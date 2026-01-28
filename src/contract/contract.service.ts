@@ -104,22 +104,22 @@ export class ContractService {
         return new HttpException('Campos incompletos', 400);
       }
 
-      contract.contract_number = updateContractDto.contract_number;
-      contract.po_date = updateContractDto.po_date;
-      contract.client = updateContractDto.client;
-      contract.po2 = updateContractDto.po2;
-      contract.customer_po = updateContractDto.customer_po;
-      contract.manufacter = updateContractDto.manufacter;
-      contract.commodity = updateContractDto.commodity;
-      contract.supplier_counterpart = updateContractDto.supplier_counterpart;
-      contract.po = updateContractDto.po;
-      contract.storage = updateContractDto.storage;
-      contract.facturado = updateContractDto.facturado;
-      contract.deliveried = updateContractDto.deliveried;
-      contract.status = updateContractDto.status;
-      contract.usuario = updateContractDto.usuario;
-
-      const updatedContract = await contract.update(contract);
+      const updatedContract = await contract.update({
+        contract_number: updateContractDto.contract_number,
+        po_date: updateContractDto.po_date,
+        client: updateContractDto.client,
+        po2: updateContractDto.po2,
+        customer_po: updateContractDto.customer_po,
+        manufacter: updateContractDto.manufacter,
+        commodity: updateContractDto.commodity,
+        supplier_counterpart: updateContractDto.supplier_counterpart,
+        po: updateContractDto.po,
+        storage: updateContractDto.storage,
+        facturado: updateContractDto.facturado,
+        deliveried: updateContractDto.deliveried,
+        status: updateContractDto.status,
+        usuario: updateContractDto.usuario,
+      });
       return updatedContract;
     } catch (e) {
       console.log(e);

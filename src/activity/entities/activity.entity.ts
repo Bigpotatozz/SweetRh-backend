@@ -11,7 +11,6 @@ import { Employee } from 'src/employee/entities/employee.entity';
 
 @Table({
   tableName: 'activity',
-  paranoid: true,
 })
 export class Activity extends Model {
   @Column({

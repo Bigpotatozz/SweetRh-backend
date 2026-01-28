@@ -57,6 +57,7 @@ export class EmployeeService {
       if (!employee) {
         return new HttpException('Empleado no encontrado', 404);
       }
+
       if (
         updateEmployeeDto.name === undefined ||
         updateEmployeeDto.position === undefined

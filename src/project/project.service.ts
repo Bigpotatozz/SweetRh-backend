@@ -74,12 +74,12 @@ export class ProjectService {
         return new HttpException('Faltan datos', 400);
       }
 
-      project.name = updateProjectDto.name;
-      project.description = updateProjectDto.description;
-      project.id_employee = updateProjectDto.id_employee;
-      project.id_contract = updateProjectDto.id_contract;
-
-      const updatedProject = await project.update(project);
+      const updatedProject = await project.update({
+        name: updateProjectDto.name,
+        description: updateProjectDto.description,
+        id_employee: updateProjectDto.id_employee,
+        id_contract: updateProjectDto.id_contract,
+      });
 
       return updatedProject;
     } catch (e) {

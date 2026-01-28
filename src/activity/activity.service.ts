@@ -89,13 +89,13 @@ export class ActivityService {
         return new HttpException('Campos incompletos', 400);
       }
 
-      activity.id_employee = updateActivityDto.id_employee;
-      activity.name = updateActivityDto.name;
-      activity.description = updateActivityDto.description;
-      activity.start_date = updateActivityDto.start_date;
-      activity.end_date = updateActivityDto.end_date;
-
-      const updatedActivity = await activity.update(activity);
+      const updatedActivity = await activity.update({
+        id_employee: updateActivityDto.id_employee,
+        name: updateActivityDto.name,
+        description: updateActivityDto.description,
+        start_date: updateActivityDto.start_date,
+        end_date: updateActivityDto.end_date,
+      });
       return updatedActivity;
     } catch (e) {
       console.log(e);
