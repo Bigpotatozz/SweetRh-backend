@@ -175,7 +175,7 @@ export class ContractService {
 
         const project = await this.projectRepository.create(
           {
-            name: contratoProyecto.name_proy,
+            name: contratoProyecto.contract_number,
             description: contratoProyecto.description,
             id_employee: contratoProyecto.id_employee,
             id_contract: contrato.id_contract,
