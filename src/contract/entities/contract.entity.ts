@@ -6,7 +6,6 @@ import {
   HasOne,
   HasMany,
   DeletedAt,
-  AllowNull,
 } from 'sequelize-typescript';
 import { Project } from 'src/project/entities/project.entity';
 import { Raidd } from 'src/raidd/entities/raidd.entity';

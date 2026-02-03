@@ -9,6 +9,7 @@ import { ProjectModule } from './project/project.module';
 import { ProjectActivitiesModule } from './project-activities/project-activities.module';
 import { RaiddModule } from './raidd/raidd.module';
 import { ActionModule } from './action/action.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ActionModule } from './action/action.module';
     ProjectActivitiesModule,
     RaiddModule,
     ActionModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

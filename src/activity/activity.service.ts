@@ -126,31 +126,35 @@ export class ActivityService {
   async getAllActivities() {
     try {
       const sequelize = this.activityRepository.sequelize;
-      const query = `  SELECT 
-			activity.id_employee,
-			activity.id_activity,
-            activity.name,
-            activity.description,
-            activity.start_date,
-            activity.end_date,
-            'normal' AS tipo,
-            employee.name as name_employee
+      const query = `
+        SELECT 
+          activity.id_employee,
+          activity.id_activity,
+          activity.name,
+          activity.description,
+          activity.start_date,
+          activity.end_date,
+          'normal' AS tipo,
+          employee.name as name_employee
         FROM activity 
-        inner join employee on employee.id_employee = activity.id_employee
+        INNER JOIN employee ON employee.id_employee = activity.id_employee
+        WHERE activity.deletedAt IS NULL
 
         UNION ALL
 
         SELECT 
-			project_activity.id_employee,
-			project_activity.id_project_activity,
-            project_activity.name,
-            project_activity.description,
-            project_activity.start_date,
-            project_activity.end_date,
-            'proyecto' AS tipo,
-            employee.name as name_employee
+          project_activity.id_employee,
+          project_activity.id_project_activity,
+          project_activity.name,
+          project_activity.description,
+          project_activity.start_date,
+          project_activity.end_date,
+          'proyecto' AS tipo,
+          employee.name as name_employee
         FROM project_activity
-          inner join employee on employee.id_employee = project_activity.id_employee;`;
+        INNER JOIN employee ON employee.id_employee = project_activity.id_employee
+        WHERE project_activity.deletedAt IS NULL;
+      `;
 
       const actividades = await sequelize?.query(query);
 

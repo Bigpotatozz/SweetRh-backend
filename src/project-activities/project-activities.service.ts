@@ -10,7 +10,6 @@ export class ProjectActivitiesService {
     private projectActivitiesRepository: typeof ProjectActivity,
   ) {}
   async create(createProjectActivityDto: CreateProjectActivityDto) {
-    console.log(createProjectActivityDto);
     try {
       const actividad = await this.projectActivitiesRepository.create({
         name: createProjectActivityDto.name,
