@@ -8,5 +8,6 @@ import { ProjectModule } from 'src/project/project.module';
   imports: [ProjectModule],
   controllers: [ContractController],
   providers: [ContractService, ...contractProvider],
+  exports: [...contractProvider],
 })
 export class ContractModule {}

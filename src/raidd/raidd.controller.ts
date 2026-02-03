@@ -15,7 +15,7 @@ import { UpdateRaiddDto } from './dto/update-raidd.dto';
 export class RaiddController {
   constructor(private readonly raiddService: RaiddService) {}
 
-  @Post()
+  @Post('/createRaidd')
   create(@Body() createRaiddDto: CreateRaiddDto) {
     return this.raiddService.create(createRaiddDto);
   }
