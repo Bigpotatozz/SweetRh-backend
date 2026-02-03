@@ -23,27 +23,22 @@ export class Raidd extends Model {
   declare id_raidd: number;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   declare cota: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   declare usuario: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   declare tiempo_entrega: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   declare duracion: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   declare inicio: string;
 
