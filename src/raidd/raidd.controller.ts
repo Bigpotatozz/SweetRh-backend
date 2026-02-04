@@ -30,6 +30,11 @@ export class RaiddController {
     return this.raiddService.findOne(+id);
   }
 
+  @Get('/findActivitiesByRaidd/:id')
+  findActivitiesByRaidd(@Param('id') id: string) {
+    return this.raiddService.findActivitiesByRaidd(+id);
+  }
+
   @Patch('/updateRaidd/:id')
   update(@Param('id') id: string, @Body() updateRaiddDto: UpdateRaiddDto) {
     return this.raiddService.update(+id, updateRaiddDto);

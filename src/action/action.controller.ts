@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ActionService } from './action.service';
 import { CreateActionDto } from './dto/create-action.dto';
 import { UpdateActionDto } from './dto/update-action.dto';
@@ -7,7 +15,7 @@ import { UpdateActionDto } from './dto/update-action.dto';
 export class ActionController {
   constructor(private readonly actionService: ActionService) {}
 
-  @Post()
+  @Post('/createAction')
   create(@Body() createActionDto: CreateActionDto) {
     return this.actionService.create(createActionDto);
   }
@@ -27,7 +35,7 @@ export class ActionController {
     return this.actionService.update(+id, updateActionDto);
   }
 
-  @Delete(':id')
+  @Delete('/deleteAction/:id')
   remove(@Param('id') id: string) {
     return this.actionService.remove(+id);
   }

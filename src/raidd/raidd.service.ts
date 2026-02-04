@@ -5,6 +5,7 @@ import { Raidd } from './entities/raidd.entity';
 import { Action } from 'src/action/entities/action.entity';
 import { Contract } from 'src/contract/entities/contract.entity';
 import { Project } from 'src/project/entities/project.entity';
+import { Employee } from 'src/employee/entities/employee.entity';
 
 @Injectable()
 export class RaiddService {
@@ -68,6 +69,20 @@ inner join raidd as r on r.id_contract = c.id_contract;
       console.log(e);
 
       return new HttpException('Error al obtener el raidd', 500);
+    }
+  }
+
+  async findActivitiesByRaidd(id: number) {
+    try {
+      const activities = await this.actionRepository.findAll({
+        where: { id_raidd: id },
+        include: [Employee],
+      });
+      return activities;
+    } catch (e) {
+      console.log(e);
+
+      return new HttpException('Error al obtener las actividades', 500);
     }
   }
 
