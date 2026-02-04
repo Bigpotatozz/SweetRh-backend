@@ -41,6 +41,7 @@ export class RaiddService {
       const raidd = await sequelize?.query(`
         select 
 
+        r.id_contract as id_contract,
         pr.name as contract_number,
 e.name as employee_name, r.cota as cota, c.customer_po as customer_po, c.client as client, c.usuario as usuario, r.tiempo_entrega as tiempo_entrega, r.duracion as duracion, r.inicio as inicio, r.id_raidd as id_raidd
 from project as pr
@@ -72,12 +73,12 @@ inner join raidd as r on r.id_contract = c.id_contract;
 
   async update(id: number, updateRaiddDto: UpdateRaiddDto) {
     try {
-      const raidd = await this.raiddRepository.findOne({ where: { id } });
+      const raidd = await this.raiddRepository.findByPk(id);
       if (!raidd) {
         return new HttpException('Raidd no encontrado', 404);
       }
 
-      raidd.update({
+      await raidd.update({
         cota: updateRaiddDto.cota,
         usuario: updateRaiddDto.usuario,
         tiempo_entrega: updateRaiddDto.tiempo_entrega,

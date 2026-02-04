@@ -30,7 +30,7 @@ export class RaiddController {
     return this.raiddService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('/updateRaidd/:id')
   update(@Param('id') id: string, @Body() updateRaiddDto: UpdateRaiddDto) {
     return this.raiddService.update(+id, updateRaiddDto);
   }
