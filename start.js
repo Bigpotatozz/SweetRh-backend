@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const rootPath = __dirname;
-const backendPath = path.join(rootPath, 'backend');
-const frontendPath = path.join(rootPath, 'frontend');
+const backendPath = path.join(rootPath, 'SweetRh-backend');
+const frontendPath = path.join(rootPath, 'SweetRh');
 const logPath = path.join(rootPath, 'logs', 'system.log');
 
 function log(message) {
