@@ -1,11 +1,11 @@
-import { spawn } from require("child_process");
-const fs = require("fs");
-const path = require("path");
+const { spawn } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 const rootPath = __dirname;
-const backendPath = path.join(rootPath, "backend");
-const frontendPath = path.join(rootPath, "frontend");
-const logPath = path.join(rootPath, "logs", "system.log");
+const backendPath = path.join(rootPath, 'backend');
+const frontendPath = path.join(rootPath, 'frontend');
+const logPath = path.join(rootPath, 'logs', 'system.log');
 
 function log(message) {
   const time = new Date().toISOString();
@@ -20,23 +20,23 @@ function startProcess(name, command, args, cwd) {
 
     const proc = spawn(command, args, {
       cwd,
-      shell: true
+      shell: true,
     });
 
-    proc.stdout.on("data", (data) => {
+    proc.stdout.on('data', (data) => {
       log(`${name}: ${data.toString().trim()}`);
     });
 
-    proc.stderr.on("data", (data) => {
+    proc.stderr.on('data', (data) => {
       log(`${name} ERROR: ${data.toString().trim()}`);
     });
 
-    proc.on("close", (code) => {
+    proc.on('close', (code) => {
       log(`${name} terminó con código ${code}. Reiniciando en 5 segundos...`);
       setTimeout(launch, 5000);
     });
 
-    proc.on("error", (err) => {
+    proc.on('error', (err) => {
       log(`Error iniciando ${name}: ${err.message}`);
       setTimeout(launch, 5000);
     });
@@ -46,21 +46,16 @@ function startProcess(name, command, args, cwd) {
 }
 
 // 🔹 Iniciar Backend
-startProcess(
-  "NestAPI",
-  "node",
-  ["dist/main.js"],
-  backendPath
-);
+startProcess('NestAPI', 'node', ['dist/main.js'], backendPath);
 
 // 🔹 Esperar 5 segundos y luego iniciar Frontend
 setTimeout(() => {
   startProcess(
-    "ReactFront",
-    "node",
-    ["node_modules/http-server/bin/http-server", "dist", "-p", "3000"],
-    frontendPath
+    'ReactFront',
+    'node',
+    ['node_modules/http-server/bin/http-server', 'dist', '-p', '3000'],
+    frontendPath,
   );
 }, 5000);
 
-log("Sistema iniciado correctamente.");
+log('Sistema iniciado correctamente.');
