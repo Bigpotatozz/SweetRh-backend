@@ -5,8 +5,6 @@ const path = require('path');
 const rootPath = __dirname;
 const backendPath = path.join(rootPath, 'SweetRh-backend');
 const frontendPath = path.join(rootPath, 'SweetRh');
-const logPath = path.join(rootPath, 'logs', 'system.log');
-
 function log(message) {
   const time = new Date().toISOString();
   const line = `[${time}] ${message}\n`;
