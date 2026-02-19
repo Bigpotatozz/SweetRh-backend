@@ -9,6 +9,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Contract } from 'src/contract/entities/contract.entity';
+import { EmployeeProject } from 'src/employee-project/entities/employee-project.entity';
 import { Employee } from 'src/employee/entities/employee.entity';
 import { ProjectActivity } from 'src/project-activities/entities/project-activity.entity';
 
@@ -43,6 +44,9 @@ export class Project extends Model {
 
   @HasMany(() => ProjectActivity)
   project_activities_many: ProjectActivity[];
+
+  @HasMany(() => EmployeeProject)
+  project_employees: EmployeeProject[];
 
   @ForeignKey(() => Employee)
   id_employee: number;

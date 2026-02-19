@@ -7,6 +7,7 @@ import {
   DeletedAt,
 } from 'sequelize-typescript';
 import { Activity } from 'src/activity/entities/activity.entity';
+import { EmployeeProject } from 'src/employee-project/entities/employee-project.entity';
 import { ProjectActivity } from 'src/project-activities/entities/project-activity.entity';
 import { Project } from 'src/project/entities/project.entity';
 
@@ -41,6 +42,9 @@ export class Employee extends Model {
 
   @HasMany(() => ProjectActivity)
   project_activities: ProjectActivity[];
+
+  @HasMany(() => EmployeeProject)
+  employee_projects: EmployeeProject[];
 
   @DeletedAt
   declare deletedAt?: Date;
