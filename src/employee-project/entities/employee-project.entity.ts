@@ -26,14 +26,14 @@ export class EmployeeProject extends Model {
     allowNull: false,
   })
   @ForeignKey(() => Employee)
-  declare idEmployee: number;
+  declare id_employee: number;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   @ForeignKey(() => Project)
-  declare idProject: number;
+  declare id_project: number;
 
   @BelongsTo(() => Employee)
   declare employee: Employee;

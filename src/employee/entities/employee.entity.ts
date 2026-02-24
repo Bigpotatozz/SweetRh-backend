@@ -37,9 +37,6 @@ export class Employee extends Model {
   @HasMany(() => Activity)
   activities: Activity[];
 
-  @HasMany(() => Project)
-  projects: Project[];
-
   @HasMany(() => ProjectActivity)
   project_activities: ProjectActivity[];
 

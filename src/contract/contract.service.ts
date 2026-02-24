@@ -4,6 +4,7 @@ import { UpdateContractDto } from './dto/update-contract.dto';
 import { Contract } from './entities/contract.entity';
 import { CreateConProyDto } from './dto/create-conproy';
 import { Project } from 'src/project/entities/project.entity';
+import { EmployeeProject } from 'src/employee-project/entities/employee-project.entity';
 
 @Injectable()
 export class ContractService {
@@ -13,6 +14,9 @@ export class ContractService {
 
     @Inject('PROJECT_REPOSITORY')
     private readonly projectRepository: typeof Project,
+
+    @Inject('EMPLOYEE_PROJECT_REPOSITORY')
+    private readonly employeeProjectRepository: typeof EmployeeProject,
   ) {}
 
   async create(createContractDto: CreateContractDto) {
@@ -177,11 +181,20 @@ export class ContractService {
           {
             name: contratoProyecto.contract_number,
             description: contratoProyecto.description,
-            id_employee: contratoProyecto.id_employee,
             id_contract: contrato.id_contract,
           },
           { transaction: t },
         );
+
+        for (let e of contratoProyecto.employees) {
+          const employeeProject = await this.employeeProjectRepository.create(
+            {
+              id_project: project.id_project,
+              id_employee: e,
+            },
+            { transaction: t },
+          );
+        }
 
         return { contrato, project };
       });

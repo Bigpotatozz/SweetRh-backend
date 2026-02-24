@@ -15,5 +15,5 @@ export class CreateConProyDto {
   usuario: string;
   name_proy: string;
   description: string;
-  id_employee: number;
+  employees: number[];
 }

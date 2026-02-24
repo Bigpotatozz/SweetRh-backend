@@ -48,17 +48,11 @@ export class Project extends Model {
   @HasMany(() => EmployeeProject)
   project_employees: EmployeeProject[];
 
-  @ForeignKey(() => Employee)
-  id_employee: number;
-
   @ForeignKey(() => Contract)
-  id_contract: number;
+  declare id_contract: number;
 
   @BelongsTo(() => Contract)
-  contract: Contract;
-
-  @BelongsTo(() => Employee)
-  employee: Employee;
+  declare contract: Contract;
 
   @DeletedAt
   declare deletedAt?: Date;
