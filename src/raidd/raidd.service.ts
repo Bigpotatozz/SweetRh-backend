@@ -41,7 +41,6 @@ export class RaiddService {
       const sequelize = this.raiddRepository.sequelize;
       const raidd = await sequelize?.query(`
         select 
-
         r.id_contract as id_contract,
         pr.name as contract_number,
 e.name as employee_name, r.cota as cota, c.customer_po as customer_po, c.client as client, c.usuario as usuario, r.tiempo_entrega as tiempo_entrega, r.duracion as duracion, r.inicio as inicio, r.id_raidd as id_raidd
