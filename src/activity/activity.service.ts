@@ -126,8 +126,7 @@ export class ActivityService {
   async getAllActivities() {
     try {
       const sequelize = this.activityRepository.sequelize;
-      const query = `
-        SELECT 
+      const query = `SELECT 
           activity.id_employee,
           activity.id_activity,
           activity.name,
@@ -135,7 +134,8 @@ export class ActivityService {
           activity.start_date,
           activity.end_date,
           'normal' AS tipo,
-          employee.name as name_employee
+          employee.name as name_employee,
+          null as project_name
         FROM activity 
         INNER JOIN employee ON employee.id_employee = activity.id_employee
         WHERE activity.deletedAt IS NULL
@@ -150,9 +150,11 @@ export class ActivityService {
           project_activity.start_date,
           project_activity.end_date,
           'proyecto' AS tipo,
-          employee.name as name_employee
+          employee.name as name_employee,
+          project.name as nombre_proyecto
         FROM project_activity
         INNER JOIN employee ON employee.id_employee = project_activity.id_employee
+        INNER JOIN project ON project.id_project = project_activity.id_project
         WHERE project_activity.deletedAt IS NULL;
       `;
 
