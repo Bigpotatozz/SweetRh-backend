@@ -41,7 +41,7 @@ export const databaseProviders = [
         EmployeeProject,
       ]);
       await sequelize.sync({
-        force: true,
+        //force: true,
       }); //Enable force just for the initial creation of the database
       return sequelize;
     },

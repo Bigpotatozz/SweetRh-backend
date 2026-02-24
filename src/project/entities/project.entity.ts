@@ -1,5 +1,6 @@
 import {
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   DeletedAt,
@@ -44,15 +45,14 @@ export class Project extends Model {
 
   @HasMany(() => ProjectActivity)
   project_activities_many: ProjectActivity[];
-
-  @HasMany(() => EmployeeProject)
-  project_employees: EmployeeProject[];
-
   @ForeignKey(() => Contract)
   declare id_contract: number;
 
   @BelongsTo(() => Contract)
   declare contract: Contract;
+
+  @BelongsToMany(() => Employee, () => EmployeeProject)
+  declare employees: Employee[];
 
   @DeletedAt
   declare deletedAt?: Date;

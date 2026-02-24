@@ -5,6 +5,7 @@ import {
   Model,
   DataType,
   DeletedAt,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import { Activity } from 'src/activity/entities/activity.entity';
 import { EmployeeProject } from 'src/employee-project/entities/employee-project.entity';
@@ -40,8 +41,8 @@ export class Employee extends Model {
   @HasMany(() => ProjectActivity)
   project_activities: ProjectActivity[];
 
-  @HasMany(() => EmployeeProject)
-  employee_projects: EmployeeProject[];
+  @BelongsToMany(() => Project, () => EmployeeProject)
+  declare projects: Project[];
 
   @DeletedAt
   declare deletedAt?: Date;

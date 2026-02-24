@@ -34,10 +34,4 @@ export class EmployeeProject extends Model {
   })
   @ForeignKey(() => Project)
   declare id_project: number;
-
-  @BelongsTo(() => Employee)
-  declare employee: Employee;
-
-  @BelongsTo(() => Project)
-  declare project: Project;
 }
