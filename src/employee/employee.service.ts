@@ -19,7 +19,6 @@ export class EmployeeService {
 
       return employee;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al crear empleado', 500, {
         cause: e,
       });
@@ -32,7 +31,6 @@ export class EmployeeService {
       const employees = await this.employeeRepository.findAll();
       return employees;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al listar empleados', 500, {
         cause: e,
       });
@@ -44,7 +42,6 @@ export class EmployeeService {
       const employee = await this.employeeRepository.findByPk(id);
       return employee;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al listar empleados', 500, {
         cause: e,
       });
@@ -72,7 +69,6 @@ export class EmployeeService {
 
       return updatedEmployee;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al actualizar empleado', 500, {
         cause: e,
       });
@@ -90,7 +86,6 @@ export class EmployeeService {
       employee.destroy();
       return employee;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al eliminar empleado', 500, {
         cause: e,
       });

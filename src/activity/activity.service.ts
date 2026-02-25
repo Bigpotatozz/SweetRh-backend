@@ -71,7 +71,6 @@ export class ActivityService {
   }
 
   async update(id: number, updateActivityDto: UpdateActivityDto) {
-    console.log(updateActivityDto);
     try {
       const activity = await this.activityRepository.findByPk(id);
 

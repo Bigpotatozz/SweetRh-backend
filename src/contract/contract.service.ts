@@ -40,7 +40,6 @@ export class ContractService {
 
       return contract;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al registrar contrato', 500, {
         cause: e,
       });
@@ -56,7 +55,6 @@ export class ContractService {
       }
       return contracts;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al registrar actividad', 500, {
         cause: e,
       });
@@ -72,7 +70,6 @@ export class ContractService {
 
       return contract;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al registrar actividad', 500, {
         cause: e,
       });
@@ -82,7 +79,6 @@ export class ContractService {
   //Probably this won´t be used in production
   async update(id: number, updateContractDto: UpdateContractDto) {
     try {
-      console.log('UPDATEEEEE');
       const contract = await this.contractRepository.findByPk(id);
 
       if (!contract) {
@@ -126,7 +122,6 @@ export class ContractService {
       });
       return updatedContract;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al registrar actividad', 500, {
         cause: e,
       });
@@ -145,7 +140,6 @@ export class ContractService {
 
       return deletedContract;
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al registrar actividad', 500, {
         cause: e,
       });
@@ -153,7 +147,6 @@ export class ContractService {
   }
 
   async registerContractProject(contratoProyecto: CreateConProyDto) {
-    console.log(contratoProyecto);
     const sequelize = this.contractRepository.sequelize;
     try {
       return await sequelize?.transaction(async (t) => {
@@ -199,7 +192,6 @@ export class ContractService {
         return { contrato, project };
       });
     } catch (e) {
-      console.log(e);
       return new HttpException('Error al registrar actividad', 500, {
         cause: e,
       });
