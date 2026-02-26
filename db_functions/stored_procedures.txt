@@ -1,0 +1,48 @@
+
+# Funcion para establecer actividades de proyecto por defecto 
+NOTA: Se tiene que registrar el primer usuario como ADMIN, que es el que tendra todas las actividades en un inicio
+
+
+DELIMITER //
+CREATE TRIGGER after_project_insert
+AFTER INSERT ON project
+FOR EACH ROW
+BEGIN
+
+INSERT INTO project_activity (name, description, start_date, end_date, status, id_employee, id_project, createdAt, updatedAt)
+VALUES 
+-- 1 al 4
+('1. Recepcion PO', 'recepcion de PO', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('2. Elaboracion de Contrato', 'elaboracion de contrato', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('3. Envio Listado de componentes y Cotiza.', 'envio listado', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('4. Confirmacion de existencias en almacen', 'confirmacion existencias', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+
+-- 5 Elaboracion de OC
+('5. Elaboracion de OC p/ proveedores', 'elaboracion OC', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.1 OC', 'recepcion', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.1.1 Envio de pago', 'envio pago', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.2 OC ', 'oc', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.2.1 Envio de pago', 'envio pago', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.3 OC', 'orden de compra', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.3.1 Envio de pago', 'envio pago', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.4 OC', 'orden de compra', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.4.1 Envio de pago', 'envio pago', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.5 OC', 'orden de compra', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('5.5.1 Envio de pago', 'envio pago', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+
+-- 6 Recepcion de partes
+('6. Recepcion de partes', 'recepcion partes general', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('6.1 Recepcion', 'recepcion item 1', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('6.2 Recepcion', 'recepcion item 2', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('6.3 Recepcion', 'recepcion item 3', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('6.4 Recepcion', 'recepcion item 4', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('6.5 Recepcion', 'recepcion item 5', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+
+-- 7 al 10
+('7. Integracion mecanica electrica', 'integracion', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('8. Programacion', 'programacion', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('9. Pruebas y entrega', 'pruebas y entrega', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW()),
+('10. Vo.Bo. Finalizacion de Proyecto', 'vobo finalizacion', NULL, NULL, 'NO INICIADO', 1, NEW.id_project, NOW(), NOW());
+
+END //
+DELIMITER ;

@@ -40,14 +40,25 @@ export class RaiddService {
     try {
       const sequelize = this.raiddRepository.sequelize;
       const raidd = await sequelize?.query(`
-        select 
-        r.id_contract as id_contract,
-        pr.name as contract_number,
-e.name as employee_name, r.cota as cota, c.customer_po as customer_po, c.client as client, c.usuario as usuario, r.tiempo_entrega as tiempo_entrega, r.duracion as duracion, r.inicio as inicio, r.id_raidd as id_raidd
+          select 
+		ANY_VALUE(r.id_raidd) as id_raidd,
+        ANY_VALUE(r.id_contract) as id_contract,
+        ANY_VALUE(pr.name) as contract_number,
+		GROUP_CONCAT( DISTINCT e.name SEPARATOR ',') as employee_name, 
+        ANY_VALUE(r.cota) as cota, 
+        ANY_VALUE(c.customer_po) as customer_po, 
+        ANY_VALUE(c.client) as client, 
+        ANY_VALUE(c.usuario) as usuario, 
+        ANY_VALUE(r.tiempo_entrega) as tiempo_entrega, 
+        ANY_VALUE(r.duracion) as duracion, 
+        ANY_VALUE(r.inicio) as inicio, 
+        ANY_VALUE(r.id_raidd) as id_raidd
 from project as pr
-inner join employee as e on pr.id_employee = e.id_employee
+inner join employee_project as ep on pr.id_project = ep.id_project 
+inner join employee as e on ep.id_employee = e.id_employee
 inner join contract as c on pr.id_contract = c.id_contract
-inner join raidd as r on r.id_contract = c.id_contract;
+inner join raidd as r on r.id_contract = c.id_contract
+group by (r.id_raidd);	
       `);
       if (!raidd) {
         return new HttpException('No se encontraron raidd', 404);

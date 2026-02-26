@@ -192,6 +192,7 @@ export class ContractService {
         return { contrato, project };
       });
     } catch (e) {
+      console.log(e);
       return new HttpException('Error al registrar actividad', 500, {
         cause: e,
       });
